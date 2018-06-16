@@ -52,6 +52,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="308dp"
         android:text="Register"
+        android:onClick="registerProcess"
         android:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
