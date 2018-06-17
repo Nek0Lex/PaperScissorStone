@@ -29,13 +29,7 @@ public class RegisterActivity extends AppCompatActivity{
     EditText phoneNum;
     AutoCompleteTextView email;
     TextView test;
-    String NOTES = "notes.txt";
-    private static final int REQUEST_CODE = 3434;
-
-//    String inputName= name.getText().toString();
-//    String inputEmail = email.getText().toString();
-//    String inputDob = dob.getText().toString();
-//    String inputPhone = phoneNum.getText().toString();
+    SharedPreferences user;
 
     final Calendar c = Calendar.getInstance();
     int mYear = c.get(Calendar.YEAR);
@@ -55,7 +49,6 @@ public class RegisterActivity extends AppCompatActivity{
         email.setAdapter(adapter);
         name = findViewById(R.id.name);
         phoneNum = findViewById(R.id.phoneNum);
-        test = findViewById(R.id.test);
 
         dob.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -70,11 +63,7 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-        SharedPreferences settings = getSharedPreferences("registerPref", 0);
-
-        if (phoneNum.getText().length()>8){
-            phoneNum.setError("Not over 8 char");
-        }
+        user = getSharedPreferences("registerPref", 0);
 
     }
 
@@ -97,15 +86,19 @@ public class RegisterActivity extends AppCompatActivity{
             String inputDob = dob.getText().toString();
             String inputPhone = phoneNum.getText().toString();
 
-            if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()){
+            if (phoneNum.getText().length()>8){
+                phoneNum.setError("Not over 8 char");
+            } else if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()){
                 Toast.makeText(this,"Cant be null",Toast.LENGTH_SHORT).show();
             } else {
-                Intent i = new Intent(this, MainMenuActivity.class);
-                i.putExtra("name", inputName);
-                i.putExtra("email", inputEmail);
-                i.putExtra("dob", inputDob);
-                i.putExtra("phone", inputPhone);
-                startActivityForResult(i, REQUEST_CODE);
+                user.edit()
+                        .putString("name",inputName)
+                        .putString("email", inputEmail)
+                        .putString("dob", inputDob)
+                        .putString("phone", inputPhone)
+                        .apply();
+                Intent i = new Intent(this,MainMenuActivity.class);
+                startActivity(i);
             }
 
         } catch (Exception e){

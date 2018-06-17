@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
+    tools:context=".EditUserActivity"
     android:background="@drawable/gradientselector">
 
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_modify"
         android:layout_width="152dp"
         android:layout_height="53dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="356dp"
-        android:text="Register"
-        android:onClick="register"
+        android:text="Modify"
+        android:onClick="editUser"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
@@ -129,7 +129,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/cancel"
         android:layout_width="155dp"
         android:layout_height="53dp"
         android:layout_marginBottom="100dp"

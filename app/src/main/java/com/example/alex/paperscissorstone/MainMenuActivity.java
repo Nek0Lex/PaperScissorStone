@@ -19,6 +19,7 @@ public class MainMenuActivity extends Activity {
     TextView phone;
     TextView email;
     TextView dob;
+    String username,useremail, phoneNumber, Dob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +29,16 @@ public class MainMenuActivity extends Activity {
         phone = findViewById(R.id.phoneNum);
         email = findViewById(R.id.email);
         dob = findViewById(R.id.dob);
+        username = getSharedPreferences("registerPref", MODE_PRIVATE).getString("name", "");
+        useremail = getSharedPreferences("registerPref", MODE_PRIVATE).getString("email", "");
+        phoneNumber = getSharedPreferences("registerPref", MODE_PRIVATE).getString("phone", "");
+        Dob = getSharedPreferences("registerPref", MODE_PRIVATE).getString("dob", "");
 
         try {
-            Intent intent = getIntent();
-            name.setText(intent.getStringExtra("name"));
-            email.setText(intent.getStringExtra("email"));
-            phone.setText(intent.getStringExtra("phone"));
-            dob.setText(intent.getStringExtra("dob"));
+            name.setText(username);
+            email.setText(useremail);
+            phone.setText(phoneNumber);
+            dob.setText(Dob);
         } catch (Exception e){
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -43,6 +47,11 @@ public class MainMenuActivity extends Activity {
 
     public void backToRegister(View view) {
         Intent i =  new Intent(this, RegisterActivity.class);
+        startActivity(i);
+    }
+
+    public void editUser(View view) {
+        Intent i = new Intent (this, EditUserActivity.class);
         startActivity(i);
     }
 }
