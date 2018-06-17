@@ -1,6 +1,7 @@
 package com.example.alex.paperscissorstone;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class RegisterActivity extends AppCompatActivity{
     EditText phoneNum;
     AutoCompleteTextView email;
     TextView test;
+    String NOTES = "notes.txt";
+    private static final int REQUEST_CODE = 3434;
 
 //    String inputName= name.getText().toString();
 //    String inputEmail = email.getText().toString();
@@ -69,6 +72,10 @@ public class RegisterActivity extends AppCompatActivity{
 
         SharedPreferences settings = getSharedPreferences("registerPref", 0);
 
+        if (phoneNum.getText().length()>8){
+            phoneNum.setError("Not over 8 char");
+        }
+
     }
 
     private static final String[] emailDomain = new String[] {
@@ -88,11 +95,22 @@ public class RegisterActivity extends AppCompatActivity{
             String inputEmail = email.getText().toString();
             String inputDob = dob.getText().toString();
             String inputPhone = phoneNum.getText().toString();
-            test.setText(inputName);
+
+
+            Intent i = new Intent(this, MainMenuActivity.class);
+            i.putExtra("name", inputName);
+            i.putExtra("email", inputEmail);
+            i.putExtra("dob", inputDob);
+            i.putExtra("phone", inputPhone);
+            startActivityForResult(i, REQUEST_CODE);
+
         } catch (Exception e){
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
+    public void cancel(View view) {
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+    }
 }
-
-
