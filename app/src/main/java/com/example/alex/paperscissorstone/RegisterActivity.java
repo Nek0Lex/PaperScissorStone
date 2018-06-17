@@ -3,6 +3,7 @@ package com.example.alex.paperscissorstone;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity{
     EditText dob;
     EditText phoneNum;
     AutoCompleteTextView email;
-    TextView test;
     SharedPreferences user;
 
     final Calendar c = Calendar.getInstance();
@@ -36,17 +36,13 @@ public class RegisterActivity extends AppCompatActivity{
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         myCalendar = getInstance();
         dob = findViewById(R.id.dob);
-        ArrayAdapter <String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, emailDomain);
         email = findViewById(R.id.email);
-        email.setAdapter(adapter);
         name = findViewById(R.id.name);
         phoneNum = findViewById(R.id.phoneNum);
 
@@ -64,12 +60,7 @@ public class RegisterActivity extends AppCompatActivity{
         });
 
         user = getSharedPreferences("registerPref", 0);
-
     }
-
-    private static final String[] emailDomain = new String[] {
-             "@gmail.com", "@yahoo.com","@hotmail.com","@live.com", "@facebook.com", "@msn.com","@qq.com", "@naver.com"
-    };
 
     private String setDateFormat(int year,int monthOfYear,int dayOfMonth){
         return String.valueOf(monthOfYear + 1) + "/"
