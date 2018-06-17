@@ -23,8 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainMenuActivity"></activity>
-        <activity android:name=".EditUserActivity"></activity>
+        <activity android:name=".MainMenuActivity" />
+        <activity android:name=".EditUserActivity" />
+        <activity android:name=".GameActivity"></activity>
     </application>
 
 </manifest>

@@ -47,11 +47,18 @@ public class MainMenuActivity extends Activity {
 
     public void backToRegister(View view) {
         Intent i =  new Intent(this, RegisterActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
+        finish();
     }
 
     public void editUser(View view) {
         Intent i = new Intent (this, EditUserActivity.class);
+        startActivity(i);
+    }
+
+    public void toGame(View view) {
+        Intent i = new Intent (this, GameActivity.class);
         startActivity(i);
     }
 }
