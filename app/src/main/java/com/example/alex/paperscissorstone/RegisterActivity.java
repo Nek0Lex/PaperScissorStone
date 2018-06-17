@@ -91,18 +91,22 @@ public class RegisterActivity extends AppCompatActivity{
 
     public void register(View view) {
         try {
+
             String inputName = name.getText().toString();
             String inputEmail = email.getText().toString();
             String inputDob = dob.getText().toString();
             String inputPhone = phoneNum.getText().toString();
 
-
-            Intent i = new Intent(this, MainMenuActivity.class);
-            i.putExtra("name", inputName);
-            i.putExtra("email", inputEmail);
-            i.putExtra("dob", inputDob);
-            i.putExtra("phone", inputPhone);
-            startActivityForResult(i, REQUEST_CODE);
+            if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()){
+                Toast.makeText(this,"Cant be null",Toast.LENGTH_SHORT).show();
+            } else {
+                Intent i = new Intent(this, MainMenuActivity.class);
+                i.putExtra("name", inputName);
+                i.putExtra("email", inputEmail);
+                i.putExtra("dob", inputDob);
+                i.putExtra("phone", inputPhone);
+                startActivityForResult(i, REQUEST_CODE);
+            }
 
         } catch (Exception e){
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();

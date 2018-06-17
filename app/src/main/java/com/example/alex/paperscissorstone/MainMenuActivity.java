@@ -3,6 +3,7 @@ package com.example.alex.paperscissorstone;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,4 +41,8 @@ public class MainMenuActivity extends Activity {
     }
 
 
+    public void backToRegister(View view) {
+        Intent i =  new Intent(this, RegisterActivity.class);
+        startActivity(i);
+    }
 }
