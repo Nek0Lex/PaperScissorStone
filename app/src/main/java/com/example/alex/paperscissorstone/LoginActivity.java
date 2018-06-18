@@ -7,17 +7,28 @@ import android.view.View;
 import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText username;
+    EditText name;
+    EditText passwordInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText) findViewById(R.id.username);
+        name = findViewById(R.id.username);
+        passwordInput = findViewById(R.id.password);
     }
 
 
     public void registerProcess(View view) {
         Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
+    }
+
+
+    public void loginprocess(View view) {
+        String username = name.getText().toString();
+        String password = passwordInput.getText().toString();
+
+
     }
 }

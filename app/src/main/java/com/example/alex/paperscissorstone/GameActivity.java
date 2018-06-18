@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -13,25 +14,35 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class GameActivity extends AppCompatActivity {
-    TextView textView;
+    TextView name;
+    TextView age;
+    Button start;
     ImageButton btn_paper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        textView = findViewById(R.id.textView);
+        name = findViewById(R.id.name);
         btn_paper = findViewById(R.id.btn_paper);
-        new TransTask()
-                .execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
+        start = findViewById(R.id.btn_start);
+        age = findViewById(R.id.age);
     }
 
     public void playAgain(View view) {
         new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
+    }
+
+    public void playStart(View view) {
+        new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
+        start.setVisibility(View.INVISIBLE);
     }
 
 
@@ -68,7 +79,16 @@ public class GameActivity extends AppCompatActivity {
         }
 
     private void parseJSON(String s) {
-        textView.setText(s);
+        try {
+            String username = new JSONObject(s).getString("name");
+            name.setText("Name: " + username);
+            String userage = new JSONObject(s).getString("age");
+            age.setText("Age: " + userage);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import static java.util.Calendar.getInstance;
@@ -30,6 +32,9 @@ public class RegisterActivity extends AppCompatActivity{
     EditText phoneNum;
     AutoCompleteTextView email;
     SharedPreferences user;
+    final String email_pattern = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    private Pattern pattern = Pattern.compile(email_pattern);
+    private Matcher matcher;
 
     final Calendar c = Calendar.getInstance();
     int mYear = c.get(Calendar.YEAR);
@@ -77,10 +82,20 @@ public class RegisterActivity extends AppCompatActivity{
             String inputDob = dob.getText().toString();
             String inputPhone = phoneNum.getText().toString();
 
-            if (phoneNum.getText().length()>8){
-                phoneNum.setError("Not over 8 char");
-            } else if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()){
-                Toast.makeText(this,"Cant be null",Toast.LENGTH_SHORT).show();
+            if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()) {
+                if (inputName.isEmpty()) {
+                    name.setError("This input cant be null");
+                } else if (inputEmail.isEmpty()) {
+                    email.setError("This input cant be null");
+                } else if (inputDob.isEmpty()) {
+                    dob.setError("This input cant be null");
+                } else if (inputPhone.isEmpty()) {
+                    phoneNum.setError("This input cant be null");
+                }
+            } else if (!validateEmail(inputEmail)){
+                    email.setError("Not a correct email");
+            } else if (phoneNum.getText().length()>8){
+                    phoneNum.setError("Over 8 char");
             } else {
                 user.edit()
                         .putString("name",inputName)
@@ -102,5 +117,10 @@ public class RegisterActivity extends AppCompatActivity{
     public void cancel(View view) {
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
+    }
+
+    public boolean validateEmail(String email) {
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
