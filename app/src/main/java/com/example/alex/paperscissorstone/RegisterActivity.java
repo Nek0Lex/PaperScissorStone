@@ -35,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity{
     final String email_pattern = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(email_pattern);
     private Matcher matcher;
-
     final Calendar c = Calendar.getInstance();
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);

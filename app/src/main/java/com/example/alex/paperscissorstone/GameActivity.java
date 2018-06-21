@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -20,29 +21,44 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class GameActivity extends AppCompatActivity {
-    TextView name;
-    TextView age;
-    Button start;
-    ImageButton btn_paper;
+    TextView opponame ,oppoage,result;
+    Button start,playagain;
+    ImageButton btnPaper, btnStone, btnScissor;
+    ImageView oppoHandShow;
+    int oppoHand, roundCount=1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        name = findViewById(R.id.name);
-        btn_paper = findViewById(R.id.btn_paper);
+        opponame = findViewById(R.id.name);
+        btnPaper = findViewById(R.id.btn_paper);
+        btnStone = findViewById(R.id.btn_stone);
+        btnScissor = findViewById(R.id.btn_scissor);
         start = findViewById(R.id.btn_start);
-        age = findViewById(R.id.age);
-    }
-
-    public void playAgain(View view) {
-        new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
+        oppoage = findViewById(R.id.age);
+        oppoHandShow = findViewById(R.id.oppoHandImage);
+        result = findViewById(R.id.gameresult);
+        playagain = findViewById(R.id.btn_playagain);
+        playagain.setVisibility(View.INVISIBLE);
+        btnStone.setClickable(false);
+        btnPaper.setClickable(false);
+        btnScissor.setClickable(false);
     }
 
     public void playStart(View view) {
         new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
         start.setVisibility(View.INVISIBLE);
+        btnPaper.setClickable(true);
+        btnScissor.setClickable(true);
+        btnStone.setClickable(true);
+
+    }
+
+    public void playAgain(View view) {
+        new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
+        roundCount++;
     }
 
 
@@ -81,17 +97,60 @@ public class GameActivity extends AppCompatActivity {
     private void parseJSON(String s) {
         try {
             String username = new JSONObject(s).getString("name");
-            name.setText("Name: " + username);
+            opponame.setText("Name: " + username);
             String userage = new JSONObject(s).getString("age");
-            age.setText("Age: " + userage);
-
-
+            oppoage.setText("Age: " + userage);
+            oppoHand = new JSONObject(s).getInt("hand");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public void gameProgress(View view) {
+        btnStone.setVisibility(View.INVISIBLE);
+        btnScissor.setVisibility(View.INVISIBLE);
+        btnPaper.setVisibility(View.INVISIBLE);
+        opponame.setText("");
+        oppoage.setText("");
 
+        switch (oppoHand){
+            case 0:
+                oppoHandShow.setImageResource(R.drawable.paper139r);
+            case 1:
+                oppoHandShow.setImageResource(R.drawable.scissors139r);
+            case 2:
+                oppoHandShow.setImageResource(R.drawable.stone139r);
+        }
+        playagain.setVisibility(View.VISIBLE);
+        switch (view.getId()){
+            case R.id.btn_paper:
+                if(oppoHand == 0)
+                    result.setText("打和！super!");
+                else if (oppoHand == 1)
+                    result.setText("You Lose!");
+                else if (oppoHand == 2)
+                    result.setText("You Win");
+            case R.id.btn_stone:
+                if (oppoHand == 0)
+                    result.setText("You Lose!");
+                else if (oppoHand == 1)
+                    result.setText("You Win");
+                else if (oppoHand == 2)
+                    result.setText("打和！super!");
+            case R.id.btn_scissor:
+                if (oppoHand == 0)
+                    result.setText("You Win");
+                else if (oppoHand == 1)
+                    result.setText("打和！super!");
+                else if (oppoHand == 2)
+                    result.setText("You Lose");
+        }
+
+        if (roundCount > 1){
+            playagain.setVisibility(View.VISIBLE);
+            start.setVisibility(View.INVISIBLE);
+        }
+    }
 
 }
 

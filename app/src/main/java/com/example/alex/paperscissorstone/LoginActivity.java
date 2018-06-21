@@ -29,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         String username = name.getText().toString();
         String password = passwordInput.getText().toString();
 
-
+        if (username.equals("Alex")||password.equals("0000")){
+            Intent i = new Intent(this, MainMenuActivity.class);
+            startActivity(i);
+        }
     }
 }

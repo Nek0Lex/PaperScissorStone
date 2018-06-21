@@ -7,39 +7,38 @@
     tools:context=".GameActivity"
     android:background="@drawable/gradientselector">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/chino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <ImageButton
         android:id="@+id/btn_stone"
         android:layout_width="116dp"
         android:layout_height="119dp"
-        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:focusable="true"
+        android:onClick="gameProgress"
         android:src="@drawable/stone86"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.76" />
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gifImageView"
-        android:layout_width="290dp"
-        android:layout_height="167dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/chino"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
 
     <ImageButton
         android:id="@+id/btn_paper"
         android:layout_width="116dp"
         android:layout_height="119dp"
-        android:background="@android:color/transparent"
-        android:onClick="playAgain"
+        android:clickable="false"
         android:src="@drawable/paper86"
+        android:onClick="gameProgress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,11 +47,11 @@
 
     <ImageButton
         android:id="@+id/btn_scissor"
-        android:layout_width="116dp"
+        android:layout_width="112dp"
         android:layout_height="119dp"
-        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:onClick="gameProgress"
         android:src="@drawable/scissors86"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
@@ -91,16 +90,66 @@
         android:layout_width="103dp"
         android:layout_height="53dp"
         android:layout_marginBottom="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="140dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="playStart"
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.969" />
+
+    <Button
+        android:id="@+id/btn_playagain"
+        android:layout_width="103dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="playAgain"
+        android:text="Play Again"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.969" />
+
+    <TextView
+        android:id="@+id/gameresult"
+        android:layout_width="297dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.469" />
+
+    <ImageView
+        android:id="@+id/oppoHandImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.092"
+        app:srcCompat="@drawable/border" />
 
 </android.support.constraint.ConstraintLayout>
