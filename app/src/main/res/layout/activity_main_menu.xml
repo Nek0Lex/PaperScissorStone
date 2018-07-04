@@ -12,142 +12,162 @@
         android:id="@+id/exit"
         android:layout_width="311dp"
         android:layout_height="wrap_content"
-        android:text="logout and Exit"
-        android:onClick="backToRegister"
         android:backgroundTint="#FFFFFF"
+        android:onClick="backToRegister"
+        android:text="logout and Exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.883" />
+        app:layout_constraintVertical_bias="0.965" />
 
     <Button
         android:id="@+id/gameLog"
         android:layout_width="311dp"
         android:layout_height="wrap_content"
-        android:text="Game Log"
-        android:onClick="jumpToGameLog"
         android:backgroundTint="#FFFFFF"
+        android:onClick="jumpToGameLog"
+        android:text="Game Log"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.747" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="311dp"
         android:layout_height="wrap_content"
-        android:text="Edit personal information"
         android:backgroundTint="#FFFFFF"
         android:onClick="editUser"
+        android:text="Edit personal information"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.699" />
 
     <TextView
         android:id="@+id/phoneNum"
-        android:layout_width="208dp"
-        android:layout_height="32dp"
+        android:layout_width="150dp"
+        android:layout_height="34dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
-        android:text="TextView"
-        android:textSize="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.912"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.005" />
+        app:layout_constraintVertical_bias="0.449" />
 
     <TextView
         android:id="@+id/dob"
-        android:layout_width="208dp"
-        android:layout_height="32dp"
+        android:layout_width="150dp"
+        android:layout_height="34dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
-        android:text="TextView"
-        android:textSize="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.449" />
 
     <TextView
         android:id="@+id/email"
-        android:layout_width="208dp"
-        android:layout_height="32dp"
+        android:layout_width="311dp"
+        android:layout_height="31dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:text="TextView"
-        android:textSize="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.354" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="90dp"
-        android:layout_height="87dp"
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="90dp"-->
+        <!--android:layout_height="87dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:src="@drawable/cocoa"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.0" />-->
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="95dp"
+        android:layout_height="99dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/cocoa"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.02" />
+
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="208dp"
+        android:layout_width="311dp"
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textSize="20dp"
         android:background="@drawable/border"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.248" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="311dp"
         android:layout_height="wrap_content"
-        android:text="Play Paper Scissor Stone"
         android:backgroundTint="#FFFFFF"
         android:onClick="toGame"
+        android:text="Play Paper Scissor Stone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.568" />
 
 </android.support.constraint.ConstraintLayout>

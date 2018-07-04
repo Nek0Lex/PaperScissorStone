@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class GameLogActivity extends AppCompatActivity {
     ListView gameLog;
-    String [] gameNo,gameDate,opponentName,opponentAge,yourHand,opponentHand;
+    String [] gameNo,gameDate,opponentName,opponentAge,yourHand,opponentHand,status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +44,37 @@ public class GameLogActivity extends AppCompatActivity {
             gameDate = new String[dataCount];
             opponentName = new String[dataCount];
             opponentAge = new String[dataCount];
+            yourHand = new String[dataCount];
+            opponentHand = new String[dataCount];
+            status = new String[dataCount];
 
             c = db.rawQuery("SELECT * FROM Gamelog", null);
             int i = 0;
             while (c.moveToNext()) {
                 String gameno = c.getString(c.getColumnIndex("gameNo"));
                 String gamedate = c.getString(c.getColumnIndex("gameDate"));
+                String oppoHand = c.getString(c.getColumnIndex("opponentHand"));
+                String oppoName = c.getString(c.getColumnIndex("opponentName"));
+                String oppoAge = c.getString(c.getColumnIndex("opponentAge"));
+                String userHand = c.getString(c.getColumnIndex("userHand"));
+                String winLoseStatus = c.getString(c.getColumnIndex("status"));
+
                 gameNo[i] = gameno;
                 gameDate[i] = gamedate;
+                opponentHand[i] = oppoHand;
+                opponentName[i] = oppoName;
+                opponentAge[i] = oppoAge;
+                yourHand[i] = userHand;
+                status[i] = winLoseStatus;
                 i++;
             }
             c.close();
 
             db.close();
 
-            ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, gameNo);
-            gameLog.setAdapter(aa);
+
+            CustomListAdapter cla = new CustomListAdapter(this, gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status);
+            gameLog.setAdapter(cla);
 
         } catch (Exception e){
             e.printStackTrace();

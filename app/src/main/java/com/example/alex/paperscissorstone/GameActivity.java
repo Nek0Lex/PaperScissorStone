@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
     ImageView oppoHandShow;
     GifImageView chinoGif;
     SQLiteDatabase db;
-    String oppoAge, oppoName;
+    String oppoAge, oppoName, winLoseStatus;
     int oppoHand, userHand;
     int roundCount=1;
 
@@ -68,7 +68,6 @@ public class GameActivity extends AppCompatActivity {
         btnPaper.setClickable(true);
         btnScissor.setClickable(true);
         btnStone.setClickable(true);
-
     }
 
     public void playAgain(View view) {
@@ -108,13 +107,11 @@ public class GameActivity extends AppCompatActivity {
                 }
                 return sb.toString();
             }
-
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 Log.d("JSON", s);
                 parseJSON(s);
             }
-
 
         }
 
@@ -158,32 +155,44 @@ public class GameActivity extends AppCompatActivity {
             case R.id.btn_paper:
                 btnPaper.setVisibility(View.VISIBLE);
                 userHand = 0;
-                if(oppoHand == 0)
+                if(oppoHand == 0) {
                     result.setText("打和！super!");
-                else if (oppoHand == 1)
+                    winLoseStatus = "打和";
+                } else if (oppoHand == 1) {
                     result.setText("You Lose!");
-                else if (oppoHand == 2)
+                    winLoseStatus = "Lose";
+                } else if (oppoHand == 2) {
                     result.setText("You Win");
+                    winLoseStatus = "Win";
+                }
                 break;
             case R.id.btn_stone:
                 btnStone.setVisibility(View.VISIBLE);
                 userHand = 2;
-                if (oppoHand == 0)
+                if (oppoHand == 0) {
                     result.setText("You Lose!");
-                else if (oppoHand == 1)
+                    winLoseStatus = "Lose";
+                } else if (oppoHand == 1){
                     result.setText("You Win");
-                else if (oppoHand == 2)
+                    winLoseStatus = "Win";
+                } else if (oppoHand == 2) {
                     result.setText("打和！super!");
+                    winLoseStatus = "打和";
+                }
                 break;
             case R.id.btn_scissor:
                 userHand = 1;
                 btnScissor.setVisibility(View.VISIBLE);
-                if (oppoHand == 0)
+                if (oppoHand == 0) {
                     result.setText("You Win");
-                else if (oppoHand == 1)
+                    winLoseStatus = "Win";
+                } else if (oppoHand == 1) {
                     result.setText("打和！super!");
-                else if (oppoHand == 2)
+                    winLoseStatus = "打和";
+                } else if (oppoHand == 2) {
                     result.setText("You Lose");
+                    winLoseStatus = "Lose";
+                }
                 break;
         }
 
@@ -203,7 +212,7 @@ public class GameActivity extends AppCompatActivity {
             sql = "DROP TABLE if exists Gamelog;";
             db.execSQL(sql);
             sql = "CREATE TABLE Gamelog(" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "
-                    + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text); ";
+                    + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
             db.execSQL(sql);
         }catch (Exception e){
             e.printStackTrace();
@@ -214,7 +223,7 @@ public class GameActivity extends AppCompatActivity {
         try {
         db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
                 SQLiteDatabase.OPEN_READWRITE);
-        //GamesLog (gameNo, gamedate, gametime, opponentName, opponentAge, yourHand, opponentHand)
+        //GamesLog (gameNo, gamedate, gametime, opponentName, opponentAge, yourHand, opponentHand, status)
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String gamedate = sdf.format(new Date());
             ContentValues insertValues = new ContentValues();
@@ -222,8 +231,9 @@ public class GameActivity extends AppCompatActivity {
             insertValues.put("gameDate", gamedate);
             insertValues.put("opponentName", oppoName);
             insertValues.put("opponentAge", oppoAge);
-            insertValues.put("userHand", 1);
+            insertValues.put("userHand", userHand);
             insertValues.put("opponentHand", oppoHand);
+            insertValues.put("status", winLoseStatus);
             db.insert("Gamelog", null, insertValues);
             db.close();
         } catch (Exception e){
