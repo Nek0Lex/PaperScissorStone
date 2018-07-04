@@ -15,14 +15,22 @@
 
     </ListView>
 
-
     <LinearLayout
         android:id="@android:id/empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="348dp"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/emptyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Empty record"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
 

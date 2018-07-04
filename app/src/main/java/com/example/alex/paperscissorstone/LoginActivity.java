@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (username.equals("Alex")||password.equals("0000")){
             Intent i = new Intent(this, MainMenuActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
     }

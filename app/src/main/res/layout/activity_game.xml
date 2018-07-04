@@ -70,11 +70,13 @@
 
     <TextView
         android:id="@+id/age"
-        android:layout_width="169dp"
+        android:layout_width="280dp"
         android:layout_height="31dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="248dp"
-        android:text=""
+        android:text="Choose your way!"
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +85,13 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="169dp"
+        android:layout_width="280dp"
         android:layout_height="31dp"
         android:layout_marginBottom="272dp"
         android:layout_marginTop="8dp"
-        android:text="Welcome to rabbit house"
+        android:text="Welcome to this game!"
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +100,7 @@
 
     <Button
         android:id="@+id/btn_start"
+        android:backgroundTint="@android:color/white"
         android:layout_width="103dp"
         android:layout_height="53dp"
         android:layout_marginBottom="28dp"
@@ -106,13 +111,14 @@
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.917"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_playagain"
+        android:backgroundTint="@android:color/white"
         android:layout_width="103dp"
         android:layout_height="53dp"
         android:layout_marginBottom="28dp"
@@ -123,10 +129,10 @@
         android:text="Play Again"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.917"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/gameresult"
@@ -161,20 +167,21 @@
         app:layout_constraintVertical_bias="0.092" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btn_back"
+        android:backgroundTint="@android:color/white"
+        android:layout_width="103dp"
+        android:layout_height="53dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Button"
-        android:onClick="recordToDatabase"
+        android:onClick="backtomenu"
+        android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.926" />
+        app:layout_constraintVertical_bias="0.954" />
 
 </android.support.constraint.ConstraintLayout>

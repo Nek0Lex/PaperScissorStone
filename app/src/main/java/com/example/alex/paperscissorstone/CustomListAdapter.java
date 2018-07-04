@@ -1,6 +1,7 @@
 package com.example.alex.paperscissorstone;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,13 @@ public class CustomListAdapter extends ArrayAdapter {
         //oppoHandID.setText(opponentHand[position]);
         gamedate.setText(gameDate[position]);
         resultStatus.setText(status[position]);
+        if (status[position].equals("Win")){
+            resultStatus.setTextColor(Color.GREEN);
+        } else if (status[position].equals("Lose")){
+            resultStatus.setTextColor(Color.RED);
+        } else {
+            resultStatus.setTextColor(Color.GRAY);
+        }
         playersName.setText("V.S "+opponentName[position]);
         return rowView;
 

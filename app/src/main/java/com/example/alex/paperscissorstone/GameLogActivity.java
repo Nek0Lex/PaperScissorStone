@@ -1,14 +1,23 @@
 package com.example.alex.paperscissorstone;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,15 +32,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressLint("NewApi")
 public class GameLogActivity extends AppCompatActivity {
     ListView gameLog;
-    String [] gameNo,gameDate,opponentName,opponentAge,yourHand,opponentHand,status;
+    String[] gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status;
+    TextView emptyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_log);
         gameLog = findViewById(R.id.gameLog);
+        emptyText = findViewById(R.id.emptyText);
         //gameLog.setEmptyView(findViewById(R.id.empty));
 
         try {
@@ -74,13 +86,15 @@ public class GameLogActivity extends AppCompatActivity {
 
 
             CustomListAdapter cla = new CustomListAdapter(this, gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status);
+            if (!cla.isEmpty()){
+                emptyText.setVisibility(View.INVISIBLE);
+            }
             gameLog.setAdapter(cla);
 
-        } catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 
 }

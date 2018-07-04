@@ -2,6 +2,7 @@ package com.example.alex.paperscissorstone;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
@@ -30,7 +31,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class GameActivity extends AppCompatActivity {
     TextView opponame ,oppoage,result;
-    Button start,playagain;
+    Button start,playagain, btnBack;
     ImageButton btnPaper, btnStone, btnScissor;
     ImageView oppoHandShow;
     GifImageView chinoGif;
@@ -53,6 +54,7 @@ public class GameActivity extends AppCompatActivity {
         oppoHandShow = findViewById(R.id.oppoHandImage);
         result = findViewById(R.id.gameresult);
         playagain = findViewById(R.id.btn_playagain);
+        btnBack = findViewById(R.id.btn_back);
         playagain.setVisibility(View.INVISIBLE);
         btnStone.setClickable(false);
         btnPaper.setClickable(false);
@@ -82,6 +84,12 @@ public class GameActivity extends AppCompatActivity {
         userHand = -1;
         oppoHand = 0;
         roundCount++;
+    }
+
+    public void backtomenu(View view) {
+        Intent i = new Intent(this,MainMenuActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
 
