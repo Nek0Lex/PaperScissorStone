@@ -29,7 +29,9 @@
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".EditUserActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".GameLogActivity"></activity>
+        <activity android:name=".GameLogActivity">
+
+        </activity>
     </application>
 
 </manifest>

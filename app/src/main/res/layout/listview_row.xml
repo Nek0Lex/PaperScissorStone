@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:text="//userhand"
+        android:gravity="center"
+        android:id="@+id/userHandID"
+        android:layout_width="99dp"
+        android:layout_height="90dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/resultStatus"
+            android:layout_width="193dp"
+            android:layout_height="30dp"
+            android:text="//result" />
+
+        <TextView
+            android:id="@+id/playersName"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="//players name" />
+
+        <TextView
+            android:id="@+id/gameDate"
+            android:layout_width="193dp"
+            android:layout_height="25dp"
+            android:text="//gamedate" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/oppoHandID"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="//oppohand" />
+    </LinearLayout>
+
+</LinearLayout>

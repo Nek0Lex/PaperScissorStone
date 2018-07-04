@@ -61,4 +61,9 @@ public class MainMenuActivity extends Activity {
         Intent i = new Intent (this, GameActivity.class);
         startActivity(i);
     }
+
+    public void jumpToGameLog(View view) {
+        Intent i = new Intent (this, GameLogActivity.class);
+        startActivity(i);
+    }
 }
