@@ -114,8 +114,13 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     public void cancel(View view) {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(this, LoginActivity.class);
+////        startActivity(i);
+        myCalendar.clear();
+        dob.setText("");
+        email.setText("");
+        name.setText("");
+        phoneNum.setText("");
     }
 
     public boolean validateEmail(String email) {

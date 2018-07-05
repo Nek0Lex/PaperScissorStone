@@ -1,6 +1,7 @@
 package com.example.alex.paperscissorstone;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class CustomListAdapter extends ArrayAdapter {
     private final Activity context;
@@ -18,10 +21,13 @@ public class CustomListAdapter extends ArrayAdapter {
     private final String[] yourHand;
     private final String[] opponentHand;
     private final String[] status;
+    private final String username;
+
+
 
 
     public CustomListAdapter(Activity context, String[] gameNo , String[] gameDate, String[] opponentName, String[] opponentAge,
-                             String[] yourHand, String[] opponentHand, String[] status){
+                             String[] yourHand, String[] opponentHand, String[] status, String username){
 
         super(context,R.layout.listview_row , gameNo);
 
@@ -33,6 +39,7 @@ public class CustomListAdapter extends ArrayAdapter {
         this.yourHand = yourHand;
         this.opponentHand = opponentHand;
         this.status = status;
+        this.username = username;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -45,6 +52,7 @@ public class CustomListAdapter extends ArrayAdapter {
         TextView playersName = (TextView) rowView.findViewById(R.id.playersName);
         TextView gamedate = (TextView) rowView.findViewById(R.id.gamedate);
         ImageView oppoHandID = (ImageView) rowView.findViewById(R.id.oppoHandID);
+
 
 
         //this code sets the values of the objects to values from the arrays
@@ -81,7 +89,7 @@ public class CustomListAdapter extends ArrayAdapter {
         } else {
             resultStatus.setTextColor(Color.GRAY);
         }
-        playersName.setText("V.S "+opponentName[position]);
+        playersName.setText(username+" V.S "+opponentName[position]);
         return rowView;
 
     };

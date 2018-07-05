@@ -2,6 +2,7 @@ package com.example.alex.paperscissorstone;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +38,8 @@ public class GameLogActivity extends AppCompatActivity {
     ListView gameLog;
     String[] gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status;
     TextView emptyText;
+    SharedPreferences user;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class GameLogActivity extends AppCompatActivity {
         gameLog = findViewById(R.id.gameLog);
         emptyText = findViewById(R.id.emptyText);
         //gameLog.setEmptyView(findViewById(R.id.empty));
+        user = getSharedPreferences("registerPref", 0);
+        username = getSharedPreferences("registerPref", MODE_PRIVATE).getString("name", "");
 
         try {
             SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
@@ -85,7 +90,7 @@ public class GameLogActivity extends AppCompatActivity {
             db.close();
 
 
-            CustomListAdapter cla = new CustomListAdapter(this, gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status);
+            CustomListAdapter cla = new CustomListAdapter(this, gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status, username);
             if (!cla.isEmpty()){
                 emptyText.setVisibility(View.INVISIBLE);
             }

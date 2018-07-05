@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FFFFFF"
         android:onClick="toGame"
-        android:text="Play Paper Scissor Stone"
+        android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"

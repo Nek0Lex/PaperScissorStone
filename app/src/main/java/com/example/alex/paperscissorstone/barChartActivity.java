@@ -101,7 +101,7 @@ public class barChartActivity extends AppCompatActivity {
             int endx = startx + 20;
 
             int starty = ScrHeight/3;
-            int endy = ScrHeight / 3;
+            int endy = ScrHeight/3;
 
             int initX = startx;
             int initY = starty;
@@ -111,7 +111,7 @@ public class barChartActivity extends AppCompatActivity {
                 starty = initY - (i + 1) * lnSpace;
                 endy = starty;
                 if (i == 0) continue;
-                canvas.drawLine(startx - lnWidth, starty + lnSpace, initX, endy + lnSpace, PaintText);
+                canvas.drawLine(startx - lnWidth, starty + lnSpace, initX, endy+lnSpace , PaintText);
                 canvas.drawText(Integer.toString(i), initX - 30, endy + lnSpace, PaintText);
             }
 
@@ -131,7 +131,7 @@ public class barChartActivity extends AppCompatActivity {
                 canvas.drawText(Integer.toString(arrNum[i]), startx, initY + lnSpace, arrPaintArc[0]);
 
             }
-            canvas.drawLine(initX, initY, ScrWidth - 10, initY, PaintText);
+            canvas.drawLine(initX, initY, ScrWidth - ScrWidth/2, initY, PaintText);
 
             //////////////////////////////////////////////////////////////////
             /////////////////////////

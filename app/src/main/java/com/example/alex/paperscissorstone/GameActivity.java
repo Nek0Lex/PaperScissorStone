@@ -49,24 +49,26 @@ public class GameActivity extends AppCompatActivity {
         btnPaper = findViewById(R.id.btn_paper);
         btnStone = findViewById(R.id.btn_stone);
         btnScissor = findViewById(R.id.btn_scissor);
-        start = findViewById(R.id.btn_start);
+       // start = findViewById(R.id.btn_start);
         oppoage = findViewById(R.id.age);
         oppoHandShow = findViewById(R.id.oppoHandImage);
         result = findViewById(R.id.gameresult);
         playagain = findViewById(R.id.btn_playagain);
         btnBack = findViewById(R.id.btn_back);
         playagain.setVisibility(View.INVISIBLE);
-        btnStone.setClickable(false);
-        btnPaper.setClickable(false);
-        btnScissor.setClickable(false);
+//        btnStone.setClickable(false);
+//        btnPaper.setClickable(false);
+//        btnScissor.setClickable(false);
+        playStart();
+
 
         initDB();
     }
 
-    public void playStart(View view) {
+    public void playStart() {
         new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
         oppoHandShow.setVisibility(View.INVISIBLE);
-        start.setVisibility(View.INVISIBLE);
+        //start.setVisibility(View.INVISIBLE);
         btnPaper.setClickable(true);
         btnScissor.setClickable(true);
         btnStone.setClickable(true);
@@ -164,8 +166,8 @@ public class GameActivity extends AppCompatActivity {
                 btnPaper.setVisibility(View.VISIBLE);
                 userHand = 0;
                 if(oppoHand == 0) {
-                    result.setText("打和！super!");
-                    winLoseStatus = "打和";
+                    result.setText("Tie!");
+                    winLoseStatus = "Tie";
                 } else if (oppoHand == 1) {
                     result.setText("You Lose!");
                     winLoseStatus = "Lose";
@@ -184,8 +186,8 @@ public class GameActivity extends AppCompatActivity {
                     result.setText("You Win");
                     winLoseStatus = "Win";
                 } else if (oppoHand == 2) {
-                    result.setText("打和！super!");
-                    winLoseStatus = "打和";
+                    result.setText("Tie!");
+                    winLoseStatus = "Tie";
                 }
                 break;
             case R.id.btn_scissor:
@@ -195,8 +197,8 @@ public class GameActivity extends AppCompatActivity {
                     result.setText("You Win");
                     winLoseStatus = "Win";
                 } else if (oppoHand == 1) {
-                    result.setText("打和！super!");
-                    winLoseStatus = "打和";
+                    result.setText("Tie");
+                    winLoseStatus = "Tie";
                 } else if (oppoHand == 2) {
                     result.setText("You Lose");
                     winLoseStatus = "Lose";
@@ -206,7 +208,7 @@ public class GameActivity extends AppCompatActivity {
 
         if (roundCount > 1){
             playagain.setVisibility(View.VISIBLE);
-            start.setVisibility(View.INVISIBLE);
+            //start.setVisibility(View.INVISIBLE);
         }
 
         recordToDatabase();
