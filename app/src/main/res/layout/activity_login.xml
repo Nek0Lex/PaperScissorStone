@@ -47,34 +47,36 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:id="@+id/button6"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="308dp"
-        android:text="Register"
-        android:onClick="registerProcess"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#FFFFFF"
+        android:onClick="registerProcess"
+        android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        app:layout_constraintVertical_bias="0.131" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="308dp"
-        android:text="Login"
-        android:onClick="loginprocess"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#FFFFFF"
+        android:onClick="loginprocess"
+        android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintHorizontal_bias="0.861"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        app:layout_constraintVertical_bias="0.131" />
 
 </android.support.constraint.ConstraintLayout>

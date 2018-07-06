@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/setting"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Setting"
+        />
+
+    <item android:id="@+id/barchart"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Bar cha"
+        />
+</menu>

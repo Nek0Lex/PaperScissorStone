@@ -9,6 +9,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -60,9 +63,22 @@ public class GameActivity extends AppCompatActivity {
 //        btnPaper.setClickable(false);
 //        btnScissor.setClickable(false);
         playStart();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
-
-        initDB();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        // Handle item selection
+        if (item.getItemId() == R.id.setting) {
+            Intent i = new Intent(this, SettingActivity.class);
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void playStart() {
@@ -214,20 +230,18 @@ public class GameActivity extends AppCompatActivity {
         recordToDatabase();
     }
 
-    public void initDB(){
-        try {
-            db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
-                    SQLiteDatabase.CREATE_IF_NECESSARY);
-            String sql;
-            sql = "DROP TABLE if exists Gamelog;";
-            db.execSQL(sql);
-            sql = "CREATE TABLE Gamelog(" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "
-                    + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
-            db.execSQL(sql);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    public void initDB(){
+//        try {
+//            db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
+//                    SQLiteDatabase.CREATE_IF_NECESSARY);
+//            String sql;
+//            sql = "CREATE TABLE IF NOT EXISTS Gamelog (" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "
+//                    + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
+//            db.execSQL(sql);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     public void recordToDatabase(){
         try {

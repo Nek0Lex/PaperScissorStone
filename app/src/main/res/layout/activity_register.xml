@@ -15,16 +15,16 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="356dp"
-        android:text="Register"
-        android:onClick="register"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#FFFFFF"
+        android:onClick="register"
+        android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintHorizontal_bias="0.912"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintVertical_bias="0.32" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/nameInput"
@@ -104,6 +104,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="329dp"
         android:layout_height="65dp"
         android:layout_marginBottom="8dp"
@@ -126,26 +127,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Phone Number"
-            android:inputType="phone"/>
+            android:inputType="phone" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/button2"
         android:layout_width="155dp"
         android:layout_height="53dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
-        android:text="Cancel"
-        android:onClick="cancel"
         android:backgroundTint="#FFFFFF"
+        android:onClick="cancel"
+        android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintVertical_bias="0.888" />
 
 
 </android.support.constraint.ConstraintLayout>
