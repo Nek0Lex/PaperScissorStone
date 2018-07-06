@@ -2,6 +2,7 @@ package com.example.alex.paperscissorstone;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -19,6 +20,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -49,7 +52,7 @@ public class GameLogActivity extends AppCompatActivity {
         emptyText = findViewById(R.id.emptyText);
         //gameLog.setEmptyView(findViewById(R.id.empty));
         user = getSharedPreferences("registerPref", 0);
-        username = getSharedPreferences("registerPref", MODE_PRIVATE).getString("name", "");
+        username = getSharedPreferences("registerPref", MODE_PRIVATE).getString("name", "Guest");
 
         try {
             SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
@@ -100,6 +103,27 @@ public class GameLogActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.gamelogmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        // Handle item selection
+        if (item.getItemId() == R.id.setting) {
+            Intent i = new Intent(this, SettingActivity.class);
+            startActivity(i);
+        }
+        if (item.getItemId() == R.id.barchart) {
+            Intent i = new Intent(this, barChartActivity.class);
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

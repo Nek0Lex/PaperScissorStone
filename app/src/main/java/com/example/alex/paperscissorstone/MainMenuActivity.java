@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +23,14 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainMenuActivity extends AppCompatActivity {
+    private static int RESULT_LOAD_IMAGE = 1;
     String NOTES = "notes.txt";
     TextView name;
     TextView phone;
@@ -34,6 +41,7 @@ public class MainMenuActivity extends AppCompatActivity {
     SQLiteDatabase db;
     MediaPlayer mPlayer = null;
     AudioManager audioManager;
+    CircleImageView profile_image;
 
 
     @Override
@@ -45,6 +53,7 @@ public class MainMenuActivity extends AppCompatActivity {
         phone = findViewById(R.id.phoneNum);
         email = findViewById(R.id.email);
         dob = findViewById(R.id.dob);
+        profile_image = findViewById(R.id.profile_image);
         username = getSharedPreferences("registerPref", MODE_PRIVATE).getString("name", "Guest");
         useremail = getSharedPreferences("registerPref", MODE_PRIVATE).getString("email", "");
         phoneNumber = getSharedPreferences("registerPref", MODE_PRIVATE).getString("phone", "");
@@ -111,10 +120,6 @@ public class MainMenuActivity extends AppCompatActivity {
             Intent i = new Intent(this, SettingActivity.class);
             startActivity(i);
         }
-        if (item.getItemId() == R.id.barchart) {
-            Intent i = new Intent(this, barChartActivity.class);
-            startActivity(i);
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -135,6 +140,7 @@ public class MainMenuActivity extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
+        System.exit(0);
     }
 
     public void editUser(View view) {
@@ -165,4 +171,29 @@ public class MainMenuActivity extends AppCompatActivity {
         }
     }
 
+    public void changeProfilephoto(View view) {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                profile_image.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }else {
+            Toast.makeText(this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
+    }
 }

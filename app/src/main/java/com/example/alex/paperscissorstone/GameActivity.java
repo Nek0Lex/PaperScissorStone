@@ -3,6 +3,7 @@ package com.example.alex.paperscissorstone;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
@@ -42,6 +43,8 @@ public class GameActivity extends AppCompatActivity {
     String oppoAge, oppoName, winLoseStatus;
     int oppoHand, userHand;
     int roundCount=1;
+    String cheatmode;
+    SharedPreferences user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,8 @@ public class GameActivity extends AppCompatActivity {
         playagain = findViewById(R.id.btn_playagain);
         btnBack = findViewById(R.id.btn_back);
         playagain.setVisibility(View.INVISIBLE);
+        user = getSharedPreferences("registerPref", 0);
+        cheatmode = getSharedPreferences("registerPref", MODE_PRIVATE).getString("cheatmode","");
 //        btnStone.setClickable(false);
 //        btnPaper.setClickable(false);
 //        btnScissor.setClickable(false);
@@ -83,8 +88,13 @@ public class GameActivity extends AppCompatActivity {
 
     public void playStart() {
         new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
-        oppoHandShow.setVisibility(View.INVISIBLE);
-        //start.setVisibility(View.INVISIBLE);
+        if (cheatmode.equals("false")) {
+            oppoHandShow.setVisibility(View.INVISIBLE);
+            chinoGif.setVisibility(View.VISIBLE);
+        } else if (cheatmode.equals("true")){
+            oppoHandShow.setVisibility(View.VISIBLE);
+            chinoGif.setVisibility(View.INVISIBLE);
+        }
         btnPaper.setClickable(true);
         btnScissor.setClickable(true);
         btnStone.setClickable(true);
@@ -93,11 +103,17 @@ public class GameActivity extends AppCompatActivity {
     public void playAgain(View view) {
         new TransTask().execute("https://h4vttbs0ai.execute-api.ap-southeast-1.amazonaws.com/ptms");
         playagain.setVisibility(View.INVISIBLE);
-        oppoHandShow.setVisibility(View.INVISIBLE);
+        if (cheatmode.equals("false")) {
+            oppoHandShow.setVisibility(View.INVISIBLE);
+            chinoGif.setVisibility(View.VISIBLE);
+        } else if (cheatmode.equals("true")){
+            oppoHandShow.setVisibility(View.VISIBLE);
+            chinoGif.setVisibility(View.INVISIBLE);
+        }
         btnStone.setVisibility(View.VISIBLE);
         btnScissor.setVisibility(View.VISIBLE);
         btnPaper.setVisibility(View.VISIBLE);
-        chinoGif.setVisibility(View.VISIBLE);
+
         result.setVisibility(View.INVISIBLE);
         userHand = -1;
         oppoHand = 0;

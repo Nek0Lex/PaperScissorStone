@@ -6,6 +6,6 @@
 
     <item android:id="@+id/barchart"
         android:icon="@android:drawable/ic_menu_manage"
-        android:title="Bar cha"
+        android:title="Statistics"
         />
 </menu>
