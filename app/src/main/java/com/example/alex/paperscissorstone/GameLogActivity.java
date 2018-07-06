@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public class GameLogActivity extends AppCompatActivity {
     TextView emptyText;
     SharedPreferences user;
     String username;
+    int count=0 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +101,6 @@ public class GameLogActivity extends AppCompatActivity {
                 emptyText.setVisibility(View.INVISIBLE);
             }
             gameLog.setAdapter(cla);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

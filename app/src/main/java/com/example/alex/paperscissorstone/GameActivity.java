@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
@@ -47,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
     SQLiteDatabase db;
     String oppoAge, oppoName, winLoseStatus;
     int oppoHand, userHand, orientation;
-    int roundCount=1;
+    int roundCount;
     String cheatmode;
     SharedPreferences user;
 
@@ -74,6 +75,7 @@ public class GameActivity extends AppCompatActivity {
         playagain.setVisibility(View.INVISIBLE);
         user = getSharedPreferences("registerPref", 0);
         cheatmode = getSharedPreferences("registerPref", MODE_PRIVATE).getString("cheatmode","false");
+
 //        btnStone.setClickable(false);
 //        btnPaper.setClickable(false);
 //        btnScissor.setClickable(false);
@@ -248,32 +250,18 @@ public class GameActivity extends AppCompatActivity {
                 break;
         }
 
+        recordToDatabase();
         if (roundCount > 1){
             playagain.setVisibility(View.VISIBLE);
             //start.setVisibility(View.INVISIBLE);
         }
-
-        recordToDatabase();
     }
-
-//    public void initDB(){
-//        try {
-//            db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
-//                    SQLiteDatabase.CREATE_IF_NECESSARY);
-//            String sql;
-//            sql = "CREATE TABLE IF NOT EXISTS Gamelog (" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "
-//                    + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
-//            db.execSQL(sql);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 
     public void recordToDatabase(){
         try {
-        db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
-                SQLiteDatabase.OPEN_READWRITE);
-        //GamesLog (gameNo, gamedate, gametime, opponentName, opponentAge, yourHand, opponentHand, status)
+            db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
+                    SQLiteDatabase.OPEN_READWRITE);
+            //GamesLog (gameNo, gamedate, gametime, opponentName, opponentAge, yourHand, opponentHand, status)
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
             Date currentTime = Calendar.getInstance().getTime();
@@ -281,8 +269,17 @@ public class GameActivity extends AppCompatActivity {
             String gamedate = sdf.format(new Date());
             String gametime = sdfTime.format(new Date());
 
+//            Cursor c = db.rawQuery("SELECT MAX(gameNo) FROM Gamelog", null);
+//            c.moveToNext();
+//            String myString = c.getString(0);
+//            if (myString == null || myString.isEmpty()) {
+//                roundCount = 1;
+//            } else {
+//                roundCount = c.getInt(0)+1;
+//            }
+
             ContentValues insertValues = new ContentValues();
-            insertValues.put("gameNo", roundCount);
+            //insertValues.put("gameNo", roundCount);
             insertValues.put("gameTime", gametime);
             insertValues.put("gameDate", gamedate);
             insertValues.put("opponentName", oppoName);
@@ -291,7 +288,6 @@ public class GameActivity extends AppCompatActivity {
             insertValues.put("opponentHand", oppoHand);
             insertValues.put("status", winLoseStatus);
             db.insert("Gamelog", null, insertValues);
-            Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
             db.close();
         } catch (Exception e){
             e.printStackTrace();

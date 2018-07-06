@@ -134,7 +134,7 @@ public class MainMenuActivity extends AppCompatActivity {
     public void backToRegister(View view) {
         SharedPreferences.Editor editor = user.edit();
         editor.clear();
-        editor.apply();
+        editor.commit();
 
         db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
                 SQLiteDatabase.CREATE_IF_NECESSARY);
@@ -165,7 +165,7 @@ public class MainMenuActivity extends AppCompatActivity {
             db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
                     SQLiteDatabase.CREATE_IF_NECESSARY);
             String sql;
-            sql = "CREATE TABLE IF NOT EXISTS Gamelog (" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "+ "gameTime datetime, " + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
+            sql = "CREATE TABLE IF NOT EXISTS Gamelog (" + "gameNo INTEGER PRIMARY KEY AUTOINCREMENT , " + "gameDate datetime, "+ "gameTime datetime, " + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
             db.execSQL(sql);
         }catch (Exception e){
             e.printStackTrace();
