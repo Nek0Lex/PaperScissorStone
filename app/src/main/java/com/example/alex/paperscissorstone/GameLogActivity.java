@@ -39,7 +39,7 @@ import java.util.Map;
 @SuppressLint("NewApi")
 public class GameLogActivity extends AppCompatActivity {
     ListView gameLog;
-    String[] gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status;
+    String[] gameNo, gameDate, gameTime, opponentName, opponentAge, yourHand, opponentHand, status;
     TextView emptyText;
     SharedPreferences user;
     String username;
@@ -62,6 +62,7 @@ public class GameLogActivity extends AppCompatActivity {
             int dataCount = c.getInt(0);
             gameNo = new String[dataCount];
             gameDate = new String[dataCount];
+            gameTime = new String[dataCount];
             opponentName = new String[dataCount];
             opponentAge = new String[dataCount];
             yourHand = new String[dataCount];
@@ -73,6 +74,7 @@ public class GameLogActivity extends AppCompatActivity {
             while (c.moveToNext()) {
                 String gameno = c.getString(c.getColumnIndex("gameNo"));
                 String gamedate = c.getString(c.getColumnIndex("gameDate"));
+                String gametime = c.getString(c.getColumnIndex("gameTime"));
                 String oppoHand = c.getString(c.getColumnIndex("opponentHand"));
                 String oppoName = c.getString(c.getColumnIndex("opponentName"));
                 String oppoAge = c.getString(c.getColumnIndex("opponentAge"));
@@ -81,6 +83,7 @@ public class GameLogActivity extends AppCompatActivity {
 
                 gameNo[i] = gameno;
                 gameDate[i] = gamedate;
+                gameTime[i] = gametime;
                 opponentHand[i] = oppoHand;
                 opponentName[i] = oppoName;
                 opponentAge[i] = oppoAge;
@@ -89,11 +92,9 @@ public class GameLogActivity extends AppCompatActivity {
                 i++;
             }
             c.close();
-
             db.close();
 
-
-            CustomListAdapter cla = new CustomListAdapter(this, gameNo, gameDate, opponentName, opponentAge, yourHand, opponentHand, status, username);
+            CustomListAdapter cla = new CustomListAdapter(this, gameNo, gameDate, gameTime, opponentName, opponentAge, yourHand, opponentHand, status, username);
             if (!cla.isEmpty()){
                 emptyText.setVisibility(View.INVISIBLE);
             }

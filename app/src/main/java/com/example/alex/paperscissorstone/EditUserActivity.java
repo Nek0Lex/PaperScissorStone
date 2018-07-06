@@ -20,6 +20,8 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static java.util.Calendar.getInstance;
 
 public class EditUserActivity extends AppCompatActivity {
@@ -37,11 +39,17 @@ public class EditUserActivity extends AppCompatActivity {
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
+    int orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_user);
+        orientation = getResources().getConfiguration().orientation;
+        if (orientation == ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_edit_user);
+        } else if (orientation == ORIENTATION_LANDSCAPE){
+            setContentView(R.layout.activity_edit_user_landscape);
+        }
         myCalendar = getInstance();
         dob = findViewById(R.id.dob);
         email = findViewById(R.id.email);
@@ -102,8 +110,8 @@ public class EditUserActivity extends AppCompatActivity {
             }
         } else if (!validateEmail(inputEmail)){
             email.setError("Not a correct email");
-        } else if (phoneNum.getText().length()>8){
-            phoneNum.setError("Over 8 char");
+        } else if (phoneNum.getText().length()>8||phoneNum.getText().length()<8){
+            phoneNum.setError("Not a vaild phone number");
         } else {
             user.edit()
                     .putString("name",inputName)
@@ -112,6 +120,7 @@ public class EditUserActivity extends AppCompatActivity {
                     .putString("phone", inputPhone)
                     .apply();
             Intent i = new Intent(this,MainMenuActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
 
@@ -133,6 +142,7 @@ public class EditUserActivity extends AppCompatActivity {
 
     public void cancel(View view) {
         Intent i = new Intent(this, MainMenuActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 

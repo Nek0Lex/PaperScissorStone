@@ -14,6 +14,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 public class SettingActivity extends AppCompatActivity {
     private SeekBar sb;
     private TextView tv;
@@ -24,19 +27,18 @@ public class SettingActivity extends AppCompatActivity {
     SharedPreferences user;
     String cheatmode, getCheatmode;
     int Volume = 0;
-    int maxVolume;
-    int curVolume;
+    int maxVolume,curVolume, orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_setting);
-            //audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            //maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            //curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            //sb.setMax(100);
-            //sb.setProgress(curVolume);
+            orientation = getResources().getConfiguration().orientation;
+            if (orientation == ORIENTATION_PORTRAIT) {
+                setContentView(R.layout.activity_setting);
+            } else if (orientation == ORIENTATION_LANDSCAPE){
+                setContentView(R.layout.activity_setting_landscape);
+            }
             getCheatmode = getSharedPreferences("registerPref", MODE_PRIVATE).getString("cheatmode","");
             swcheatMode = findViewById(R.id.swCheatMode);
             user = getSharedPreferences("registerPref", 0);

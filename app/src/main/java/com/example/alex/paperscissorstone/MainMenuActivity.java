@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,14 +30,15 @@ import java.io.InputStreamReader;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 public class MainMenuActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     String NOTES = "notes.txt";
-    TextView name;
-    TextView phone;
-    TextView email;
-    TextView dob;
+    TextView name,phone, email, dob;
     String username,useremail, phoneNumber, Dob;
+    int orientation;
     SharedPreferences user;
     SQLiteDatabase db;
     MediaPlayer mPlayer = null;
@@ -47,8 +49,13 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        orientation = getResources().getConfiguration().orientation;
+        if (orientation == ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_main_menu);
+        } else if (orientation == ORIENTATION_LANDSCAPE){
+            setContentView(R.layout.activity_main_menu_landscape);
+        }
         user = getSharedPreferences("registerPref", 0);
-        setContentView(R.layout.activity_main_menu);
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phoneNum);
         email = findViewById(R.id.email);
@@ -125,20 +132,15 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
     public void backToRegister(View view) {
-        user.edit()
-                .putString("name",null)
-                .putString("email", null)
-                .putString("dob", null)
-                .putString("phone", null)
-                .apply();
+        SharedPreferences.Editor editor = user.edit();
+        editor.clear();
+        editor.apply();
+
         db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
                 SQLiteDatabase.CREATE_IF_NECESSARY);
         String sql;
         sql = "DROP TABLE if exists Gamelog;";
         db.execSQL(sql);
-        Intent i =  new Intent(this, MainMenuActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
         finish();
         System.exit(0);
     }
@@ -163,8 +165,7 @@ public class MainMenuActivity extends AppCompatActivity {
             db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
                     SQLiteDatabase.CREATE_IF_NECESSARY);
             String sql;
-            sql = "CREATE TABLE IF NOT EXISTS Gamelog (" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "
-                    + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
+            sql = "CREATE TABLE IF NOT EXISTS Gamelog (" + "gameNo int PRIMARY KEY, " + "gameDate datetime, "+ "gameTime datetime, " + "opponentName text, " + "opponentAge text," + "userHand int, " + "opponentHand Text, "+ "status Text); ";
             db.execSQL(sql);
         }catch (Exception e){
             e.printStackTrace();

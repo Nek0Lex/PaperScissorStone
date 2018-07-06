@@ -11,29 +11,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class CustomListAdapter extends ArrayAdapter {
     private final Activity context;
     private final String[] gameNo;
     private final String[] gameDate;
+    private final String[] gameTime;
     private final String[] opponentName;
     private final String[] opponentAge;
     private final String[] yourHand;
     private final String[] opponentHand;
     private final String[] status;
     private final String username;
+    int orientation;
 
-
-
-
-    public CustomListAdapter(Activity context, String[] gameNo , String[] gameDate, String[] opponentName, String[] opponentAge,
+    public CustomListAdapter(Activity context, String[] gameNo , String[] gameDate, String[] gameTime, String[] opponentName, String[] opponentAge,
                              String[] yourHand, String[] opponentHand, String[] status, String username){
-
-        super(context,R.layout.listview_row , gameNo);
-
+        super(context, R.layout.listview_row, gameNo);
         this.context = context;
         this.gameNo = gameNo;
         this.gameDate = gameDate;
+        this.gameTime = gameTime;
         this.opponentName = opponentName;
         this.opponentAge = opponentAge;
         this.yourHand = yourHand;
@@ -80,8 +79,11 @@ public class CustomListAdapter extends ArrayAdapter {
                 break;
         }
         //oppoHandID.setText(opponentHand[position]);
-        gamedate.setText(gameDate[position]);
+
+        gamedate.setText(gameDate[position]+" "+gameTime[position]);
+
         resultStatus.setText(status[position]);
+
         if (status[position].equals("Win")){
             resultStatus.setTextColor(Color.GREEN);
         } else if (status[position].equals("Lose")){

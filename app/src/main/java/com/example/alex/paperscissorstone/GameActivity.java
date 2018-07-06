@@ -18,11 +18,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,6 +34,8 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import pl.droidsonroids.gif.GifImageView;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -41,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
     GifImageView chinoGif;
     SQLiteDatabase db;
     String oppoAge, oppoName, winLoseStatus;
-    int oppoHand, userHand;
+    int oppoHand, userHand, orientation;
     int roundCount=1;
     String cheatmode;
     SharedPreferences user;
@@ -49,7 +54,12 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        orientation = getResources().getConfiguration().orientation;
+        if (orientation == ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_game);
+        } else if (orientation == ORIENTATION_LANDSCAPE){
+            setContentView(R.layout.activity_game_landscape);
+        }
         chinoGif = findViewById(R.id.chino);
         opponame = findViewById(R.id.name);
         btnPaper = findViewById(R.id.btn_paper);
@@ -63,7 +73,7 @@ public class GameActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         playagain.setVisibility(View.INVISIBLE);
         user = getSharedPreferences("registerPref", 0);
-        cheatmode = getSharedPreferences("registerPref", MODE_PRIVATE).getString("cheatmode","");
+        cheatmode = getSharedPreferences("registerPref", MODE_PRIVATE).getString("cheatmode","false");
 //        btnStone.setClickable(false);
 //        btnPaper.setClickable(false);
 //        btnScissor.setClickable(false);
@@ -265,9 +275,15 @@ public class GameActivity extends AppCompatActivity {
                 SQLiteDatabase.OPEN_READWRITE);
         //GamesLog (gameNo, gamedate, gametime, opponentName, opponentAge, yourHand, opponentHand, status)
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+            Date currentTime = Calendar.getInstance().getTime();
+
             String gamedate = sdf.format(new Date());
+            String gametime = sdfTime.format(new Date());
+
             ContentValues insertValues = new ContentValues();
             insertValues.put("gameNo", roundCount);
+            insertValues.put("gameTime", gametime);
             insertValues.put("gameDate", gamedate);
             insertValues.put("opponentName", oppoName);
             insertValues.put("opponentAge", oppoAge);
@@ -275,6 +291,7 @@ public class GameActivity extends AppCompatActivity {
             insertValues.put("opponentHand", oppoHand);
             insertValues.put("status", winLoseStatus);
             db.insert("Gamelog", null, insertValues);
+            Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
             db.close();
         } catch (Exception e){
             e.printStackTrace();
