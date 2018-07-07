@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -142,20 +143,28 @@ public class barChartActivity extends AppCompatActivity {
 
 
                 for (int i = 0; i < status.length; i++) {
-                    //top = 1536;
                     switch (status[i]) {
                         case "Win":
                             paint.setColor(Color.GREEN);
                             wintop = wintop - 30;
+                            if (wintop <= 400){
+                                wintop = 500;
+                            }
                             c.drawRect(250, wintop, 350, panelHeight, paint);
                             break;
                         case "Lose":
                             paint.setColor(Color.RED);
+                            if (losetop <= 400){
+                                losetop = 500;
+                            }
                             losetop = losetop - 30;
                             c.drawRect(550, losetop, 650, panelHeight, paint);
                             break;
                         case "Tie":
                             paint.setColor(Color.GRAY);
+                            if (tietop <= 400){
+                                tietop = 500;
+                            }
                             tietop = tietop - 30;
                             c.drawRect(850, tietop, 950, panelHeight, paint);
                             break;
@@ -197,16 +206,25 @@ public class barChartActivity extends AppCompatActivity {
                         case "Win":
                             paint.setColor(Color.GREEN);
                             wintop = wintop + 30;
+                            if (wintop >= 1136){
+                                wintop = 1136;
+                            }
                             c.drawRect(0, 100, wintop, 200, paint);
                             break;
                         case "Lose":
                             paint.setColor(Color.RED);
                             losetop = losetop + 30;
+                            if (losetop >= 1136){
+                                losetop = 1136;
+                            }
                             c.drawRect(0, 400, losetop, 500, paint);
                             break;
                         case "Tie":
                             paint.setColor(Color.GRAY);
                             tietop = tietop + 30;
+                            if (tietop >= 1136){
+                                tietop = 1136;
+                            }
                             c.drawRect(0, 700, tietop, 800, paint);
                             break;
                     }
