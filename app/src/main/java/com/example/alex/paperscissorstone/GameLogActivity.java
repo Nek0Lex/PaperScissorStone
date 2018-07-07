@@ -47,7 +47,7 @@ public class GameLogActivity extends AppCompatActivity {
     int count=0 ;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  //bind the listview
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_log);
         gameLog = findViewById(R.id.gameLog);
@@ -104,17 +104,26 @@ public class GameLogActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onSupportNavigateUp(){ //back button
+        finish();
+        return true;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { //bind menu layout
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.gamelogmenu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item){ //menu
         // Handle item selection
         if (item.getItemId() == R.id.setting) {
             Intent i = new Intent(this, SettingActivity.class);

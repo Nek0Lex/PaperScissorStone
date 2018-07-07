@@ -13,6 +13,10 @@ import android.widget.TextView;
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
+/*
+    This java class is customize the listview adapter from array.
+ */
+
 public class CustomListAdapter extends ArrayAdapter {
     private final Activity context;
     private final String[] gameNo;

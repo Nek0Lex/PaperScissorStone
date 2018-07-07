@@ -92,13 +92,13 @@ public class EditUserActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void editUser(View view) {
+    public void editUser(View view) {  //edit user information process
         String inputName = name.getText().toString();
         String inputEmail = email.getText().toString();
         String inputDob = dob.getText().toString();
         String inputPhone = phoneNum.getText().toString();
 
-        if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()) {
+        if (inputName.isEmpty() || inputEmail.isEmpty() || inputDob.isEmpty() || inputPhone.isEmpty()) {
             if (inputName.isEmpty()) {
                 name.setError("This input cant be null");
             } else if (inputEmail.isEmpty()) {
@@ -108,51 +108,35 @@ public class EditUserActivity extends AppCompatActivity {
             } else if (inputPhone.isEmpty()) {
                 phoneNum.setError("This input cant be null");
             }
-        } else if (!validateEmail(inputEmail)){
+        } else if (!validateEmail(inputEmail)) {
             email.setError("Not a correct email");
-        } else if (phoneNum.getText().length()>8||phoneNum.getText().length()<8){
+        } else if (phoneNum.getText().length() > 8 || phoneNum.getText().length() < 8) {
             phoneNum.setError("Not a vaild phone number");
         } else {
             user.edit()
-                    .putString("name",inputName)
+                    .putString("name", inputName)
                     .putString("email", inputEmail)
                     .putString("dob", inputDob)
                     .putString("phone", inputPhone)
                     .apply();
-            Intent i = new Intent(this,MainMenuActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            Intent i = new Intent(this, MainMenuActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
-
-//        if (phoneNum.getText().length()>8){
-//            phoneNum.setError("Not over 8 char");
-//        } else if (inputName.isEmpty()||inputEmail.isEmpty()||inputDob.isEmpty()||inputPhone.isEmpty()){
-//            Toast.makeText(this,"Cant be null",Toast.LENGTH_SHORT).show();
-//        } else {
-//            user.edit()
-//                    .putString("name",inputName)
-//                    .putString("email", inputEmail)
-//                    .putString("dob", inputDob)
-//                    .putString("phone", inputPhone)
-//                    .apply();
-//            Intent i = new Intent(this,MainMenuActivity.class);
-//            startActivity(i);
-//        }
     }
-
-    public void cancel(View view) {
+    public void cancel(View view) { //cancel process
         Intent i = new Intent(this, MainMenuActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 
-    private String setDateFormat(int year,int monthOfYear,int dayOfMonth){
+    private String setDateFormat(int year,int monthOfYear,int dayOfMonth){ //set date format
         return String.valueOf(monthOfYear + 1) + "/"
                 + String.valueOf(dayOfMonth)+ "/"
                 +String.valueOf(year);
     }
 
-    public boolean validateEmail(String email) {
+    public boolean validateEmail(String email) { //check vaild email
         matcher = pattern.matcher(email);
         return matcher.matches();
     }

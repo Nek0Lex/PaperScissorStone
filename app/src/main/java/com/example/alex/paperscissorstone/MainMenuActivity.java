@@ -1,7 +1,9 @@
 package com.example.alex.paperscissorstone;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -12,6 +14,7 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -44,10 +47,11 @@ public class MainMenuActivity extends AppCompatActivity {
     MediaPlayer mPlayer = null;
     AudioManager audioManager;
     CircleImageView profile_image;
+    AlertDialog.Builder builder;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //init activity
         super.onCreate(savedInstanceState);
         orientation = getResources().getConfiguration().orientation;
         if (orientation == ORIENTATION_PORTRAIT) {
@@ -55,6 +59,8 @@ public class MainMenuActivity extends AppCompatActivity {
         } else if (orientation == ORIENTATION_LANDSCAPE){
             setContentView(R.layout.activity_main_menu_landscape);
         }
+
+        builder = new AlertDialog.Builder(this);
         user = getSharedPreferences("registerPref", 0);
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phoneNum);
@@ -69,6 +75,7 @@ public class MainMenuActivity extends AppCompatActivity {
         mPlayer = new MediaPlayer();
         mPlayer.setLooping(true);
         mPlayer = MediaPlayer.create(this, R.raw.instrumental);
+
         try {
             name.setText(username);
             email.setText(useremail);
@@ -90,19 +97,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
         initDB();
         mPlayer.start();
-
-
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if (!mPlayer.isPlaying()) {
-//            mPlayer.start();
-//        } else {
-//            mPlayer.stop();
-//        }
-//    }
 
     @Override
     public void onDestroy() {
@@ -131,36 +127,53 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
 
-    public void backToRegister(View view) {
-        SharedPreferences.Editor editor = user.edit();
-        editor.clear();
-        editor.commit();
+    public void backToRegister(View view) { //exit
+        builder.setCancelable(true);
+        builder.setTitle("Quit");
+        builder.setMessage("Are you sure? \n (All data will be clear after quit)");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SharedPreferences.Editor editor = user.edit();
+                editor.clear();
+                editor.commit();
 
-        db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
-                SQLiteDatabase.CREATE_IF_NECESSARY);
-        String sql;
-        sql = "DROP TABLE if exists Gamelog;";
-        db.execSQL(sql);
-        finish();
-        System.exit(0);
+                db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
+                        SQLiteDatabase.CREATE_IF_NECESSARY);
+                String sql;
+                sql = "DROP TABLE if exists Gamelog;";
+                db.execSQL(sql);
+                finish();
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
-    public void editUser(View view) {
+    public void editUser(View view) { //edit information
         Intent i = new Intent (this, EditUserActivity.class);
         startActivity(i);
     }
 
-    public void toGame(View view) {
+    public void toGame(View view) { // forward to game
         Intent i = new Intent (this, GameActivity.class);
         startActivity(i);
     }
 
-    public void jumpToGameLog(View view) {
+    public void jumpToGameLog(View view) { //forward to gamelog
         Intent i = new Intent (this, GameLogActivity.class);
         startActivity(i);
     }
 
-    public void initDB(){
+    public void initDB(){ // init db
         try {
             db = SQLiteDatabase.openDatabase("/data/data/com.example.alex.paperscissorstone/gamelogDB", null,
                     SQLiteDatabase.CREATE_IF_NECESSARY);
@@ -172,14 +185,14 @@ public class MainMenuActivity extends AppCompatActivity {
         }
     }
 
-    public void changeProfilephoto(View view) {
+    public void changeProfilephoto(View view) { // change profile photo
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
     }
 
     @Override
-    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) { // change profile photo process
         super.onActivityResult(reqCode, resultCode, data);
 
 

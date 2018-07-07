@@ -33,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
-            orientation = getResources().getConfiguration().orientation;
+            orientation = getResources().getConfiguration().orientation; //check orientation
             if (orientation == ORIENTATION_PORTRAIT) {
                 setContentView(R.layout.activity_setting);
             } else if (orientation == ORIENTATION_LANDSCAPE){
@@ -59,9 +59,6 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 tv.setText("BGM Vol:"+progress + " / 100 ");
-//                mPlayer = new MediaPlayer();
-//                float volume = (float) (1 - (Math.log(MAX_VOLUME - progress) / Math.log(MAX_VOLUME)));
-//                mPlayer.setVolume(volume, volume);
                 audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
                 Volume = progress;
@@ -79,15 +76,13 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    public void backtomenu(View view) {
-//        user.edit()
-//                .putString("cheatmode", cheatmode).apply();
+    public void backtomenu(View view) { //back button
         Intent i = new Intent (this, MainMenuActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 
-    public void cheatMode(View view) {
+    public void cheatMode(View view) {  //cheat mode switch
         if (swcheatMode.isChecked()) {
             cheatmode = "true";
         } else {
